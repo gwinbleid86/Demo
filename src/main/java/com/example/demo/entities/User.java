@@ -1,42 +1,64 @@
 package com.example.demo.entities;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 
+@Getter @Setter
 @Data
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String username;
+    @Column(name = "username")
+    private String name;
 
     private String passw;
 
-    public Integer getId() {
-        return id;
+    private Boolean enabled;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("FULL"));
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    @Override
+    public String getPassword() {
+        return getPassw();
     }
 
     public String getUsername() {
-        return username;
+        return getName();
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public String getPassw() {
-        return passw;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setPassw(String passw) {
-        this.passw = passw;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 }
