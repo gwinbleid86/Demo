@@ -13,14 +13,14 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class AuthUserDetailsService implements UserDetailsService {
-
     private final UserRepository repository;
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Optional<User> user = repository.getByName(s);
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("Not Found!");
+        Optional<User> optUser = repository.getByUsername(s);
+        if (optUser.isEmpty()) {
+            throw new UsernameNotFoundException("Not found");
         }
-        return user.get();
+        return optUser.get();
     }
 }

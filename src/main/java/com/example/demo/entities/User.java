@@ -1,8 +1,6 @@
 package com.example.demo.entities;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,34 +9,24 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
-@Getter @Setter
-@Data
+@Builder
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@Setter(value = AccessLevel.PACKAGE)
+@Getter
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "username")
-    private String name;
-
-    private String passw;
-
+    private String username;
+    private String password;
     private Boolean enabled;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("FULL"));
-    }
-
-    @Override
-    public String getPassword() {
-        return getPassw();
-    }
-
-    public String getUsername() {
-        return getName();
     }
 
     @Override
