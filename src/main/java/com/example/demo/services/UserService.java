@@ -1,19 +1,21 @@
 package com.example.demo.services;
 
 import com.example.demo.dto.UserDTO;
+import com.example.demo.entities.User;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.util.UserAlreadyRegisteredException;
-import com.example.demo.entities.User;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
+
 @Service
 @AllArgsConstructor
-public class UserService{
+public class UserService {
     private final UserRepository repository;
     private final PasswordEncoder encoder;
 
@@ -34,5 +36,13 @@ public class UserService{
         repository.save(user);
     }
 
+    public Page<UserDTO> getAllUsers(Pageable pageable) {
+        var usersDTO = repository.findAll(pageable);
+        return usersDTO.map(UserDTO::from);
+    }
+
+    public Optional<UserDTO> getUserById(int id) {
+        return Optional.of(UserDTO.from(repository.findById(id).get()));
+    }
 
 }

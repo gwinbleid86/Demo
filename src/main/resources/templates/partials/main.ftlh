@@ -2,7 +2,7 @@
  объявляем макро-функцию используя которую мы создадим шаблон страницы
  https://freemarker.apache.org/docs/dgui_misc_userdefdir.html
  -->
-<#macro renderWith title="Welcome to My-Shop!" scripts=[] styles=[]>
+<#macro renderWith title="Welcome to My-Forum!" scripts=[] styles=[]>
     <!doctype html>
     <html lang="en">
     <head>
@@ -19,6 +19,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
               integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
               crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"
+                integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     </head>
     <body>
     <style>
@@ -28,7 +30,8 @@
             color: #fff;
             font-size: 24px;
         }
-        .dropdown-menu{
+
+        .dropdown-menu {
             left: auto;
             right: 0;
         }
@@ -59,10 +62,10 @@
                             <a class="nav-link" href="/categories">Categories</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/articles">Articles</a>
+                            <a class="nav-link" href="/articles/main">Articles</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/users">Users</a>
+                            <a class="nav-link" href="/users/main">Users</a>
                         </li>
                     </ul>
                     <hr class="border-white my-3 d-lg-none">
