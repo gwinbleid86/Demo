@@ -9,7 +9,7 @@
     <div>
         <h2>Edit article</h2>
 
-        <form action="/articles/${article.getId()}/edit" method="post">
+        <form action="/articles/${article.getId()}/edit" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -23,7 +23,7 @@
                 <div class="input-group">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="inputGroupFile"
-                               aria-describedby="inputGroupFileAddon" value="${article.imageOriginalName}">
+                               aria-describedby="inputGroupFileAddon" name="image">
                         <label class="custom-file-label" for="inputGroupFile">
                             <#if article.imageOriginalName?has_content>
                                 ${article.getImageOriginalName()}

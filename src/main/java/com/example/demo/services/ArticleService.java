@@ -53,17 +53,11 @@ public class ArticleService {
 
     public void updateArticle(CreateArticleDTO dto, Integer id) {
         var article = articleRepository.findById(id).get();
-        String imageOriginalName;
-        String imageName;
+        System.out.println(dto.getImage());
         if (dto.getImage() != null) {
-            imageOriginalName = dto.getImage().getOriginalFilename();
-            imageName = FileAction.uploadFile(dto.getImage());
-        } else {
-            imageOriginalName = null;
-            imageName = null;
+            article.setImageOriginalName(dto.getImage().getOriginalFilename());
+            article.setImageName(FileAction.uploadFile(dto.getImage()));
         }
-        article.setImageOriginalName(imageOriginalName);
-        article.setImageName(imageName);
         article.setTitle(dto.getTitle());
         article.setDescription(dto.getDescription());
         article.setDate(LocalDateTime.now());
@@ -82,4 +76,7 @@ public class ArticleService {
         return ((User) user).getUsername();
     }
 
+    public void deleteArticle(int id) {
+        articleRepository.delete(articleRepository.findById(id).get());
+    }
 }

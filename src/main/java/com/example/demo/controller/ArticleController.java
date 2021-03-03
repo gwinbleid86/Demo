@@ -42,7 +42,8 @@ public class ArticleController {
         var article = articleService.getArticleById(id).get();
         model.addAttribute("article", article);
         model.addAttribute("category", categoryService.findById(article.getCategoryId()).get());
-        if (article.getImageName() != null) model.addAttribute("imgAsBase64", FileAction.viewFile(articleService.getArticleById(id).get().getImageName()));
+        if (article.getImageName() != null)
+            model.addAttribute("imgAsBase64", FileAction.viewFile(articleService.getArticleById(id).get().getImageName()));
         model.addAttribute("noImage", Constants.IMAGE_URL + "img_not_available.png");
         return "article";
     }
@@ -56,10 +57,8 @@ public class ArticleController {
 
     @PostMapping("/create")
     public String addNewArticle(CreateArticleDTO dto) {
-//        if (!dto.getImage().isEmpty()) {
-            articleService.saveArticle(dto);
-//        }
-        return "redirect:/articles/create";
+        articleService.saveArticle(dto);
+        return "redirect:/articles/main";
     }
 
     @GetMapping("/{id}/edit")
@@ -73,6 +72,12 @@ public class ArticleController {
     @PostMapping("/{id}/edit")
     public String editArticle(CreateArticleDTO dto, @PathVariable("id") int id) {
         articleService.updateArticle(dto, id);
+        return "redirect:/articles/main";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String deleteArticle(@PathVariable("id") int id) {
+        articleService.deleteArticle(id);
         return "redirect:/articles/main";
     }
 }
