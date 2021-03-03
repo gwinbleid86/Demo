@@ -1,11 +1,15 @@
 package com.example.demo.entities;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Builder
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor
+@Setter(value = AccessLevel.PACKAGE)
+@Getter
 @Entity
 @Table(name = "categories")
 public class Category {

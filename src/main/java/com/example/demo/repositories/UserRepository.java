@@ -15,4 +15,6 @@ public interface UserRepository extends PagingAndSortingRepository<User, Integer
 
     Page<User> findAll(Pageable pageable);
 
+    User findByUsername(String name);
+
 }

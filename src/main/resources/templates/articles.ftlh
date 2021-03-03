@@ -34,7 +34,7 @@
                 <tr class="btn-link" data-href="/articles/${article.id}">
                     <td>${article.title}</td>
                     <td>${article.user.username}</td>
-                    <td>${article.date}</td>
+                    <td>${article.date!"--:--"}</td>
                 </tr>
             </#list>
             </tbody>
@@ -45,11 +45,9 @@
     </div>
 
     <script>
-        // jQuery( function($) {
         $('tbody tr[data-href]').addClass('clickable').click(function () {
             window.location = $(this).attr('data-href');
         });
-        // });
     </script>
 
 </@main.renderWith>

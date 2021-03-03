@@ -5,25 +5,32 @@
             bsCustomFileInput.init()
         })
     </script>
-    <div>
-        <h2>Create a new article</h2>
 
-        <form action="/articles/create" method="post" enctype="multipart/form-data">
+    <div>
+        <h2>Edit article</h2>
+
+        <form action="/articles/${article.getId()}/edit" method="post">
             <div class="form-group">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Title:</span>
                     </div>
                     <input type="text" class="form-control" aria-label="Title" aria-describedby="basic-addon1"
-                           name="title" required>
+                           value="${article.title}" name="title">
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="inputGroupFile"
-                               aria-describedby="inputGroupFileAddon" name="image">
-                        <label class="custom-file-label" for="inputGroupFile">Choose file</label>
+                               aria-describedby="inputGroupFileAddon" value="${article.imageOriginalName}">
+                        <label class="custom-file-label" for="inputGroupFile">
+                            <#if article.imageOriginalName?has_content>
+                                ${article.getImageOriginalName()}
+                            <#else>
+                                Choose file
+                            </#if>
+                        </label>
                     </div>
                 </div>
             </div>
@@ -40,12 +47,11 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Description:</span>
                     </div>
-                    <textarea class="form-control" aria-label="Description" name="description"></textarea>
+                    <textarea class="form-control" aria-label="Description" name="description">${article.description}</textarea>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="top"
-                    title="Tooltip on top">Create
-            </button>
+            <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
+
 </@main.renderWith>

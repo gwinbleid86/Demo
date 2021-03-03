@@ -1,11 +1,15 @@
 package com.example.demo.entities;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
-@Data
+@Builder
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor
+@Setter/*(value = AccessLevel.PACKAGE)*/
+@Getter
 @Entity
 @Table(name = "articles")
 public class Article {
@@ -14,8 +18,11 @@ public class Article {
     private Integer id;
     private String title;
     private String description;
-    private String image;
-    private Date date;
+    private String imageName;
+    private String imageOriginalName;
+
+    @Column(name = "date", columnDefinition="TIMESTAMP")
+    private LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
