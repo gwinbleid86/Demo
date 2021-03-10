@@ -53,8 +53,7 @@ public class ArticleService {
 
     public void updateArticle(CreateArticleDTO dto, Integer id) {
         var article = articleRepository.findById(id).get();
-        System.out.println(dto.getImage());
-        if (dto.getImage() != null) {
+        if (!dto.getImage().getOriginalFilename().equals("")) {
             article.setImageOriginalName(dto.getImage().getOriginalFilename());
             article.setImageName(FileAction.uploadFile(dto.getImage()));
         }
@@ -77,6 +76,9 @@ public class ArticleService {
     }
 
     public void deleteArticle(int id) {
-        articleRepository.delete(articleRepository.findById(id).get());
+        var article = articleRepository.findById(id).get();
+        articleRepository.delete(article);
+        System.out.println(article.getImageName());
+        FileAction.deleteFile(article.getImageName());
     }
 }

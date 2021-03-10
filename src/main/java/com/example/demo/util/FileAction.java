@@ -36,7 +36,6 @@ public class FileAction {
             String uuidFile = UUID.randomUUID().toString();
             String resultFileName = uuidFile + "_" + file.getOriginalFilename();
             Path filePath = Paths.get(path.toString(), resultFileName);
-            System.out.println(filePath);
             try (OutputStream os = Files.newOutputStream(filePath)) {
                 os.write(file.getBytes());
             } catch (IOException e) {
@@ -49,13 +48,25 @@ public class FileAction {
 
     public static String viewFile(String fileName) {
         if (!fileName.isEmpty()) {
-            try {
-                InputStream is = new FileInputStream(new File(String.valueOf(path), fileName));
+            try (InputStream is = new FileInputStream(new File(String.valueOf(path), fileName));){
                 return "data:image/png;base64," + new String(Base64.getEncoder().encode(StreamUtils.copyToByteArray(is)));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         return null;
+    }
+
+    public static void deleteFile(String fileName) {
+        System.out.println(Paths.get(path.toString(), fileName));
+        if (!fileName.isEmpty()) {
+            System.out.println("here");
+            try {
+                Files.delete(Paths.get(path.toString(), fileName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

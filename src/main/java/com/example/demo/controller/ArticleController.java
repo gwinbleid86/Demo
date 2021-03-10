@@ -32,7 +32,7 @@ public class ArticleController {
             @PageableDefault(sort = "date", direction = Sort.Direction.DESC) Pageable pageable
     ) {
         model.addAttribute("articles", articleService.getAllArticles(pageable));
-        model.addAttribute("url", "/main");
+        model.addAttribute("url", "/articles/main");
 
         return "articles";
     }
