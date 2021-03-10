@@ -78,7 +78,6 @@ public class ArticleService {
     public void deleteArticle(int id) {
         var article = articleRepository.findById(id).get();
         articleRepository.delete(article);
-        System.out.println(article.getImageName());
-        FileAction.deleteFile(article.getImageName());
+        if (article.getImageName() != null) FileAction.deleteFile(article.getImageName());
     }
 }

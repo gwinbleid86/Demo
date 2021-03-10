@@ -58,9 +58,7 @@ public class FileAction {
     }
 
     public static void deleteFile(String fileName) {
-        System.out.println(Paths.get(path.toString(), fileName));
         if (!fileName.isEmpty()) {
-            System.out.println("here");
             try {
                 Files.delete(Paths.get(path.toString(), fileName));
             } catch (IOException e) {
